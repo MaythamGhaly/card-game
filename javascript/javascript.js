@@ -27,7 +27,32 @@ window.onload = () => {
         secondCard = this;
         checkForMatch();
     }
-    
+    function checkForMatch() {
+        let isMatch = firstCard.dataset.name == secondCard.dataset.name;
+        if(isMatch=true){
+            disableCards()
+        }
+        else{
+         unflipCards();
+        }
+    }
+    function disableCards() {
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
+        [hasFlippedCard, lockBoard] = [false, false];
+        [firstCard, secondCard] = [null, null];
+        score = score + 1
+        sc.innerText = score
+    }
+    function unflipCards() {
+        lockBoard = true;
+        setTimeout(() => {
+            firstCard.classList.remove('flipcard');
+            secondCard.classList.remove('flipcard');
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }, 800);
+    }
     
     
 }
