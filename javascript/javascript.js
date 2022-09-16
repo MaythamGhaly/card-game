@@ -1,14 +1,14 @@
 window.onload = () => {
     const cards = document.querySelectorAll('.card');
     const sc = document.getElementById("score")
-    const restar=document.getElementById("restart")
+    const restart = document.getElementById("restart")
     let score = 0
     let hasFlippedCard = false;
     let lockBoard = false;
     let firstCard, secondCard;
 
-    
-    
+
+
     // function to shuffle the cardes according to the order
     const shuffle = () => {
         cards.forEach(card => {
@@ -30,15 +30,17 @@ window.onload = () => {
         secondCard = e.currentTarget;
         checkForMatch();
     }
+    // function to check if we have a matching cards
     const checkForMatch = () => {
         let isMatch = firstCard.dataset.name == secondCard.dataset.name;
-        if(isMatch){
+        if (isMatch) {
             disableCards()
         }
-        else{
-         unflipCards();
+        else {
+            unflipCards();
         }
     }
+    // function to increase the score and keep the cards open if they're matching
     const disableCards = () => {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
@@ -47,6 +49,7 @@ window.onload = () => {
         score = score + 1
         sc.innerText = score
     }
+    // function to reclose the cards if they're not matching
     const unflipCards = () => {
         lockBoard = true;
         setTimeout(() => {
@@ -56,5 +59,16 @@ window.onload = () => {
             [firstCard, secondCard] = [null, null];
         }, 800);
     }
-    for(card of cards) card.addEventListener('click', flipCard);
+    // function to restart the game
+    const Restart = () => {
+        for (card of cards) card.classList.remove('flipcard');
+        [hasFlippedCard, lockBoard] = [false, false];
+        [firstCard, secondCard] = [null, null];
+        score = 0
+        sc.innerText = score
+        shuffle()
+        for (card of cards) card.addEventListener('click', flipCard);
+    }
+    for (card of cards) card.addEventListener('click', flipCard);
+    restart.addEventListener("click", Restart)
 }

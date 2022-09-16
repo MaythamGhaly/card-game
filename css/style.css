@@ -53,3 +53,7 @@ body{
 .flipcard{
     transform: rotateY(180deg);
 }
+.restart{
+    padding: 10px 20px;
+    background-color: aquamarine;
+}
