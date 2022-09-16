@@ -10,26 +10,27 @@ window.onload = () => {
     
     
     // function to shuffle the cardes according to the order
-    (function shuffle() {
+    const shuffle = () => {
         cards.forEach(card => {
             let randomPos = Math.floor(Math.random() * 6);
             card.style.order = randomPos;
         });
-    })();
+    };
+    shuffle();
     // function to flip the card 
-    function flipCard() {
+    const flipCard = (e) => {
         if (lockBoard) return;
-        if (this === firstCard) return;
-        this.classList.add('flipcard');
+        if (e.currentTarget === firstCard) return;
+        e.currentTarget.classList.add('flipcard');
         if (!hasFlippedCard) {
             hasFlippedCard = true;
-            firstCard = this;
+            firstCard = e.currentTarget;
             return;
         }
-        secondCard = this;
+        secondCard = e.currentTarget;
         checkForMatch();
     }
-    function checkForMatch() {
+    const checkForMatch = () => {
         let isMatch = firstCard.dataset.name == secondCard.dataset.name;
         if(isMatch){
             disableCards()
@@ -38,7 +39,7 @@ window.onload = () => {
          unflipCards();
         }
     }
-    function disableCards() {
+    const disableCards = () => {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
         [hasFlippedCard, lockBoard] = [false, false];
@@ -46,7 +47,7 @@ window.onload = () => {
         score = score + 1
         sc.innerText = score
     }
-    function unflipCards() {
+    const unflipCards = () => {
         lockBoard = true;
         setTimeout(() => {
             firstCard.classList.remove('flipcard');
@@ -55,5 +56,5 @@ window.onload = () => {
             [firstCard, secondCard] = [null, null];
         }, 800);
     }
-    cards.forEach(card => card.addEventListener('click', flipCard));
+    for(card of cards) card.addEventListener('click', flipCard);
 }
