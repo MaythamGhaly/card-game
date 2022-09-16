@@ -29,7 +29,7 @@ window.onload = () => {
     }
     function checkForMatch() {
         let isMatch = firstCard.dataset.name == secondCard.dataset.name;
-        if(isMatch=true){
+        if(isMatch){
             disableCards()
         }
         else{
