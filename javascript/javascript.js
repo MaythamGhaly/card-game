@@ -1,12 +1,14 @@
 window.onload = () => {
     const cards = document.querySelectorAll('.card');
     const sc = document.getElementById("score")
+    const restar=document.getElementById("restart")
     let score = 0
     let hasFlippedCard = false;
     let lockBoard = false;
     let firstCard, secondCard;
 
-    cards.forEach(card => card.addEventListener('click', flipCard));
+    
+    
     // function to shuffle the cardes according to the order
     (function shuffle() {
         cards.forEach(card => {
@@ -53,6 +55,5 @@ window.onload = () => {
             [firstCard, secondCard] = [null, null];
         }, 800);
     }
-    
-    
+    cards.forEach(card => card.addEventListener('click', flipCard));
 }
